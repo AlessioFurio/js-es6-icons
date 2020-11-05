@@ -135,12 +135,61 @@ $(document).ready(function(){
             </div>
             `);
 
+
     }); // FINE FOREACH
+
+    // aggiungere una select per filtrare le icone in base al tipo.
+    arrayTipi.forEach((item) =>{ // leggo ogni tipo in array tipi
+        // Popolare le options della select dinamicamente
+        $('#filtroOpzioni').append(`
+            <option value="${item}">${item}</option>
+        `);
+    });
+
+    // e, ogni volta che cambia il valore selezionato, visualizzare le icone corrispondenti.
+
+    arrayIcons.forEach((item)=>{
+
+        $('#filtroOpzioni').change(()=>{
+            const selezioneUtente = $('#filtroOpzioni').val();
+            $('.containerIconsNomi').empty();
+
+                const sceltaUtente = arrayIcons.filter((item) =>{
+                return selezioneUtente == item.type;
+                });
+
+                sceltaUtente.forEach((item, i)=>{
+                    $('.containerIconsNomi').append(`
+                        <div>
+                        <p style="color:${item.color}">
+                        ${item['name']}
+                        </p>
+                        </div>
+                        `);
+                });
+
+
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     console.log(arrayColori);
     console.log(arrayTipi);
-
 
 
 
