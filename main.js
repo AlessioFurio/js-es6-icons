@@ -148,29 +148,45 @@ $(document).ready(function(){
 
     // e, ogni volta che cambia il valore selezionato, visualizzare le icone corrispondenti.
 
-    arrayIcons.forEach((item)=>{
+    //arrayIcons.forEach((item)=>{
 
         $('#filtroOpzioni').change(()=>{
+
+            // otteniamo il valore della selezione dell'utente
             const selezioneUtente = $('#filtroOpzioni').val();
+
+            // svuoti container
             $('.containerIconsNomi').empty();
 
-                const sceltaUtente = arrayIcons.filter((item) =>{
-                return selezioneUtente == item.type;
-                });
+            console.log('array icons', arrayIcons);
+            //console.log('item', item);
+            console.log('array tipi', arrayTipi);
+            //console.log('item.type', item.type);
 
-                sceltaUtente.forEach((item, i)=>{
-                    $('.containerIconsNomi').append(`
-                        <div>
-                        <p style="color:${item.color}">
-                        ${item['name']}
-                        </p>
-                        </div>
-                        `);
-                });
+            var indexType = arrayTipi.indexOf(selezioneUtente); // prendo l' indice del tipo da arraytipi
+
+            //console.log('indextype', indexType);
+
+            var iconColor = arrayColori[indexType];
+
+            const sceltaUtente = arrayIcons.filter((item) =>{
+                return selezioneUtente == item.type;
+            });
+
+
+            sceltaUtente.forEach((item, i)=>{
+                $('.containerIconsNomi').append(`
+                    <div>
+                    <p style="color:${iconColor}">
+                    ${item['name']}
+                    </p>
+                    </div>
+                    `);
+            });
 
 
         });
-    });
+    //});
 
 
 
