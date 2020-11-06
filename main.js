@@ -106,37 +106,7 @@ $(document).ready(function(){
 
     // Utilizzando la funzione forEach e il template literal, visualizzare in pagina tutte le icone con il proprio nome.
 
-    arrayIcons.forEach((item, i) => { // utilizzo il forEach per scorrere tutti gli oggetti nell'arrayIcons
-
-         // stampo in console tutti gli oggetti con relativo nome
-        console.log(`
-            ${item['name']}
-        `);
-
-
-        const {type} = item;  // recupero il tipo da ogni item grazie al foreach che scorre gli elementi e alla destrutturazione item ricavo il type
-
-
-        if(!arrayTipi.includes(type)){ // se l array tipi non include gia' il type dell' item corrente
-            arrayTipi.push(type); // allora pushalo
-        }
-
-        var indiceTipo = arrayTipi.indexOf(type); // prendo l' indice del tipo da arraytipi
-
-        var coloreIcona = arrayColori[indiceTipo];  // assegno a indice colore il valore dell' elemento in posizione indice tipo nell' array dei colori
-        console.log(coloreIcona);
-
-        // stampo in pagina tutti gli oggetti con relativo nome e colore
-        $('.containerIconsNomi').append(`
-            <div>
-            <p style="color:${coloreIcona}">
-            ${item['name']}
-            </p>
-            </div>
-            `);
-
-
-    }); // FINE FOREACH
+    stampaIcone(arrayIcons);
 
     // aggiungere una select per filtrare le icone in base al tipo.
     arrayTipi.forEach((item) =>{ // leggo ogni tipo in array tipi
@@ -169,51 +139,59 @@ $(document).ready(function(){
 
             var iconColor = arrayColori[indexType];
 
-            const sceltaUtente = arrayIcons.filter((item) =>{
-                return selezioneUtente == item.type;
-            });
+            if (selezioneUtente != ''){
+                const sceltaUtente = arrayIcons.filter((item) =>{
+                    return selezioneUtente == item.type;
+                });
 
-
-            sceltaUtente.forEach((item, i)=>{
-                $('.containerIconsNomi').append(`
-                    <div>
-                    <p style="color:${iconColor}">
-                    ${item['name']}
-                    </p>
-                    </div>
-                    `);
-            });
-
-
+                sceltaUtente.forEach((item, i)=>{
+                    $('.containerIconsNomi').append(`
+                        <div>
+                        <p style="color:${iconColor}">
+                        ${item['name']}
+                        </p>
+                        </div>
+                        `);
+                });
+            }
+            else {
+                stampaIcone(arrayIcons);
+            }
         });
     //});
 
 
+function stampaIcone (array_oggetti){
+    array_oggetti.forEach((item, i) => { // utilizzo il forEach per scorrere tutti gli oggetti nell'arrayIcons
+
+         // stampo in console tutti gli oggetti con relativo nome
+        console.log(`
+            ${item['name']}
+        `);
 
 
+        const {type} = item;  // recupero il tipo da ogni item grazie al foreach che scorre gli elementi e alla destrutturazione item ricavo il type
 
 
+        if(!arrayTipi.includes(type)){ // se l array tipi non include gia' il type dell' item corrente
+            arrayTipi.push(type); // allora pushalo
+        }
+
+        var indiceTipo = arrayTipi.indexOf(type); // prendo l' indice del tipo da arraytipi
+
+        var coloreIcona = arrayColori[indiceTipo];  // assegno a indice colore il valore dell' elemento in posizione indice tipo nell' array dei colori
+        console.log(coloreIcona);
+
+        // stampo in pagina tutti gli oggetti con relativo nome e colore
+        $('.containerIconsNomi').append(`
+            <div>
+            <p style="color:${coloreIcona}">
+            ${item['name']}
+            </p>
+            </div>
+            `);
 
 
-
-
-
-
-
-
-
-
-
-    console.log(arrayColori);
-    console.log(arrayTipi);
-
-
-
-
-
-
-
-
-
-
+    }); // FINE FOREACH
+}
 });
